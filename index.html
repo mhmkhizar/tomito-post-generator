@@ -316,7 +316,7 @@
               let type = data.Type.charAt(0).toUpperCase() + data.Type.slice(1);
 
               // Set the movie information in the textarea
-              let info = `💫 *${data.Title} (${data.Year})*\n`;
+              let info = `💫 *${data.Title} (${data.Year})*\n\n`;
               info += `🍅 *Type:* ${type}\n`;
               if (data.Type === "series" && data.totalSeasons) {
                 info += `🍅 *Total Seasons:* ${data.totalSeasons}\n`;
@@ -324,7 +324,7 @@
               info += `🍅 *Language(s):* ${languages}\n`;
               info += `🍅 *Genre(s):* ${data.Genre}\n`;
               info += `🍅 *Country:* ${data.Country}\n`;
-              info += `🍅 *IMDb Rating:* ${data.imdbRating}\n`;
+              info += `🍅 *IMDb Rating:* ${data.imdbRating}/10\n`;
               info += `🍅 *IMDb Votes:* ${data.imdbVotes}\n`;
               info += `🍅 *Plot:* ${data.Plot}\n\n`;
 
@@ -334,7 +334,7 @@
                 const downloadLink =
                   document.getElementById("downloadLink1").value;
                 if (downloadLink) {
-                  info += `💫 *Download:*\n ${downloadLink}`;
+                  info += `💫 *Download:*\n 💫 ${downloadLink}`;
                 }
               } else {
                 for (let i = 1; i <= seasonCount; i++) {
@@ -342,7 +342,7 @@
                     `downloadLink${i}`
                   ).value;
                   if (seasonLink) {
-                    info += `💫 *Season ${i} Download:*\n ${seasonLink}\n`;
+                    info += `💫 *Season ${i} Download:*\n 💫 ${seasonLink}\n`;
                   }
                 }
               }
