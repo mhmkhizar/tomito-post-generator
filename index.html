@@ -1,282 +1,437 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IMDb Info Finder</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <title>Tomito Post Generator</title>
     <style>
-        /* General CSS for dark mode and responsive design */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+      /* General CSS for dark mode and responsive design */
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #121212;
+        color: #e0e0e0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
 
-        .container {
-            text-align: center;
-            max-width: 600px;
-            width: 100%;
-            padding: 20px;
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
-            background-color: #1f1f1f;
-            border-radius: 10px;
-        }
+      .container {
+        text-align: center;
+        max-width: 600px;
+        width: 100%;
+        padding: 75px;
+        box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+        background-color: #1f1f1f;
+        border-radius: 10px;
+      }
 
-        h1 {
-            margin-bottom: 20px;
-        }
+      h1 {
+        margin-bottom: 20px;
+        font-size: 32px;
+        font-weight: 900;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
 
-        input[type="text"] {
-            width: 70%;
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 5px;
-            border: none;
-            outline: none;
+      input[type="text"],
+      select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        margin-bottom: 5px;
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        background-color: #333;
+        color: #e0e0e0;
+      }
+
+      button {
+        padding: 10px 20px;
+        margin: 10px;
+        background-color: #6200ee;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s;
+      }
+
+      button:hover {
+        background-color: #3700b3;
+      }
+
+      .result {
+        margin-top: 20px;
+        text-align: center;
+        display: none; /* Hidden initially */
+      }
+
+      .result img {
+        width: 100%;
+        max-width: 300px;
+        border-radius: 10px;
+        margin-top: 20px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      textarea {
+        width: 100%;
+        max-width: 300px;
+        height: 100px;
+        margin-top: 20px;
+        font-size: 14px;
+        padding: 10px;
+        background-color: #333;
+        color: #e0e0e0;
+        border: none;
+        border-radius: 5px;
+        resize: none;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
+
+      .button-container button {
+        margin: 0 10px;
+      }
+
+      .search-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .search-container > * {
+        margin: 5px 0;
+        width: 100%;
+      }
+
+      .download-links {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .download-link-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        width: 50%;
+      }
+
+      .add-season-btn {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        margin-bottom: 6px;
+        margin-left: 5px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+        align-self: center;
+      }
+
+      .add-season-btn:hover {
+        background-color: #45a049;
+      }
+
+      @media (max-width: 600px) {
+        input[type="text"],
+        select {
+          width: 100%;
         }
 
         button {
-            padding: 10px 20px;
-            margin: 10px;
-            background-color: #6200ee;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #3700b3;
-        }
-
-        .result {
-            margin-top: 20px;
-            text-align: center;
-            display: none; /* Hidden initially */
+          padding: 8px 15px;
+          font-size: 14px;
         }
 
         .result img {
-            width: 100%;
-            max-width: 300px;
-            border-radius: 10px;
-            margin-top: 20px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+          max-width: 100%;
         }
 
         textarea {
-            width: 100%;
-            max-width: 300px;
-            height: 100px;
-            margin-top: 20px;
-            font-size: 14px;
-            padding: 10px;
-            background-color: #333;
-            color: #e0e0e0;
-            border: none;
-            border-radius: 5px;
-            resize: none;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+          max-width: 100%;
         }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-        }
-
-        .button-container button {
-            margin: 0 10px;
-        }
-
-        @media (max-width: 600px) {
-            input[type="text"] {
-                width: 60%;
-            }
-
-            button {
-                padding: 8px 15px;
-                font-size: 14px;
-            }
-
-            .result img {
-                max-width: 100%;
-            }
-
-            textarea {
-                max-width: 100%;
-            }
-        }
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="container">
-        <h1>IMDb Info Finder</h1>
-        <input type="text" id="imdbID" placeholder="Enter IMDb ID (e.g., tt3896198)" onkeydown="checkEnterKey(event)">
-        <button onclick="getMovieInfo()">Search</button>
-        
-        <!-- Copy buttons -->
-        <div class="button-container" id="copyButtons" style="display: none;">
-            <button id="copyImageButton" onclick="copyImage()">Copy Image</button>
-            <button id="copyInfoButton" onclick="copyInfo()">Copy Info</button>
+      <h1>TOMITO POST GENERATOR</h1>
+      <form id="searchForm" onsubmit="getMovieInfo(event)">
+        <div class="search-container">
+          <input
+            type="text"
+            id="imdbID"
+            placeholder="Enter IMDb ID (e.g., tt3896198)"
+            required
+          />
+          <input
+            type="text"
+            id="languages"
+            placeholder="Enter Language(s)"
+            required
+          />
+          <select
+            id="contentType"
+            onchange="toggleDownloadLinks()"
+            style="width: 50%; margin-bottom: 10px"
+          >
+            <option value="movie">Movie</option>
+            <option value="series">Series</option>
+          </select>
         </div>
-        
-        <div class="result" id="result">
-            <img id="poster" src="" alt="Movie Poster" style="display:none;">
-            <textarea id="movieInfo" readonly></textarea>
+        <div id="downloadLinksContainer" class="download-links">
+          <div class="download-link-container">
+            <input
+              type="text"
+              id="downloadLink1"
+              placeholder="Enter Download Link"
+              required
+              style="margin-bottom: 0px"
+            />
+            <button
+              type="button"
+              class="add-season-btn"
+              onclick="addSeasonLink()"
+              style="display: none"
+            >
+              +
+            </button>
+          </div>
         </div>
+        <button type="submit">Search</button>
+      </form>
+
+      <!-- Copy buttons -->
+      <div class="button-container" id="copyButtons" style="display: none">
+        <button id="copyImageButton" onclick="copyImage()">Copy Image</button>
+        <button id="copyInfoButton" onclick="copyInfo()">Copy Info</button>
+      </div>
+
+      <div class="result" id="result">
+        <img id="poster" src="" alt="Movie Poster" style="display: none" />
+        <textarea id="movieInfo" readonly></textarea>
+      </div>
     </div>
 
     <script>
-        const apiKey = '5725af9a';
+      const apiKey = "5725af9a";
+      let seasonCount = 1;
 
-        // Function to trigger the search when Enter key is pressed
-        function checkEnterKey(event) {
-            if (event.key === 'Enter') {
-                getMovieInfo();
+      function toggleDownloadLinks() {
+        const contentType = document.getElementById("contentType").value;
+        const downloadLink1 = document.getElementById("downloadLink1");
+        const addSeasonBtn = document.querySelector(".add-season-btn");
+
+        if (contentType === "movie") {
+          downloadLink1.placeholder = "Enter Download Link";
+          addSeasonBtn.style.display = "none";
+          // Remove additional season links
+          const downloadLinksContainer = document.getElementById(
+            "downloadLinksContainer"
+          );
+          while (downloadLinksContainer.children.length > 1) {
+            downloadLinksContainer.removeChild(
+              downloadLinksContainer.lastChild
+            );
+          }
+          seasonCount = 1;
+        } else {
+          downloadLink1.placeholder = "Enter Season 1 Download Link";
+          addSeasonBtn.style.display = "inline-block";
+        }
+      }
+
+      function addSeasonLink() {
+        seasonCount++;
+        const downloadLinksContainer = document.getElementById(
+          "downloadLinksContainer"
+        );
+        const newLinkContainer = document.createElement("div");
+        newLinkContainer.className = "download-link-container";
+        newLinkContainer.innerHTML = `
+                <input type="text" id="downloadLink${seasonCount}" placeholder="Enter Season ${seasonCount} Download Link" required style="margin-bottom: 0px;">
+            `;
+        downloadLinksContainer.appendChild(newLinkContainer);
+
+        // Move the button to the last input field
+        const addSeasonBtn = document.querySelector(".add-season-btn");
+        newLinkContainer.appendChild(addSeasonBtn);
+      }
+
+      function getMovieInfo(event) {
+        event.preventDefault(); // Prevent form submission
+
+        const imdbID = document.getElementById("imdbID").value;
+        const languages = document.getElementById("languages").value;
+        const posterImg = document.getElementById("poster");
+        const movieInfoTextarea = document.getElementById("movieInfo");
+        const resultDiv = document.getElementById("result");
+        const copyButtons = document.getElementById("copyButtons");
+
+        fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`)
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.Response === "False") {
+              movieInfoTextarea.value =
+                "Movie not found! Please check the IMDb ID.";
+              resultDiv.style.display = "block";
+              posterImg.style.display = "none";
+              copyButtons.style.display = "none";
+            } else {
+              resultDiv.style.display = "block";
+              copyButtons.style.display = "block";
+
+              // Set the poster image
+              posterImg.src =
+                data.Poster !== "N/A"
+                  ? data.Poster
+                  : "https://via.placeholder.com/300x450?text=No+Image";
+              posterImg.style.display = "block";
+
+              // Capitalize the first letter of the type
+              let type = data.Type.charAt(0).toUpperCase() + data.Type.slice(1);
+
+              // Set the movie information in the textarea
+              let info = `*${data.Title} (${data.Year})*\n`;
+              info += `*Type:* ${type}\n`;
+              if (data.Type === "series" && data.totalSeasons) {
+                info += `*Total Seasons:* ${data.totalSeasons}\n`;
+              }
+              info += `*Language(s):* ${languages}\n`;
+              info += `*Genre(s):* ${data.Genre}\n`;
+              info += `*Country:* ${data.Country}\n`;
+              info += `*IMDb Rating:* ${data.imdbRating}\n`;
+              info += `*IMDb Votes:* ${data.imdbVotes}\n`;
+              info += `*Plot:* ${data.Plot}\n\n`;
+
+              // Add download links
+              const contentType = document.getElementById("contentType").value;
+              if (contentType === "movie") {
+                const downloadLink =
+                  document.getElementById("downloadLink1").value;
+                if (downloadLink) {
+                  info += `*Download: 👇*\n ${downloadLink}`;
+                }
+              } else {
+                for (let i = 1; i <= seasonCount; i++) {
+                  const seasonLink = document.getElementById(
+                    `downloadLink${i}`
+                  ).value;
+                  if (seasonLink) {
+                    info += `*Season ${i} Download: 👇*\n ${seasonLink}\n`;
+                  }
+                }
+              }
+
+              movieInfoTextarea.value = info;
             }
-        }
+          })
+          .catch((error) => {
+            console.log("Error:", error);
+            movieInfoTextarea.value =
+              "There was an error fetching the data. Please try again later.";
+            resultDiv.style.display = "block";
+            copyButtons.style.display = "none";
+            posterImg.style.display = "none";
+          });
+      }
 
-        function getMovieInfo() {
-            const imdbID = document.getElementById('imdbID').value;
-            const posterImg = document.getElementById('poster');
-            const movieInfoTextarea = document.getElementById('movieInfo');
-            const resultDiv = document.getElementById('result');
-            const copyButtons = document.getElementById('copyButtons');
+      // Copy movie info text to clipboard without selecting text visually
+      function copyInfo() {
+        const movieInfoTextarea = document.getElementById("movieInfo");
 
-            if (imdbID === '') {
-                movieInfoTextarea.value = 'Please enter a valid IMDb ID.';
-                resultDiv.style.display = 'block'; // Show textarea with the error
-                posterImg.style.display = 'none';
-                copyButtons.style.display = 'none';
-                return;
-            }
+        // Create a temporary hidden textarea to copy the content
+        const tempTextarea = document.createElement("textarea");
+        tempTextarea.value = movieInfoTextarea.value;
+        document.body.appendChild(tempTextarea);
 
-            fetch(`https://www.omdbapi.com/?i=${imdbID}&apikey=${apiKey}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.Response === "False") {
-                        movieInfoTextarea.value = 'Movie not found! Please check the IMDb ID.';
-                        resultDiv.style.display = 'block';
-                        posterImg.style.display = 'none';
-                        copyButtons.style.display = 'none';
-                    } else {
-                        resultDiv.style.display = 'block';
-                        copyButtons.style.display = 'block';
+        tempTextarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempTextarea); // Remove temp textarea
 
-                        // Set the poster image
-                        posterImg.src = data.Poster !== "N/A" ? data.Poster : 'https://via.placeholder.com/300x450?text=No+Image';
-                        posterImg.style.display = 'block';
+        const copyInfoButton = document.getElementById("copyInfoButton");
+        copyInfoButton.innerText = "Copied!";
 
-                        // Capitalize the first letter of the type
-                        let type = data.Type.charAt(0).toUpperCase() + data.Type.slice(1);
+        setTimeout(() => {
+          copyInfoButton.innerText = "Copy Info";
+        }, 1500); // Reset text after 1.5 seconds
+      }
 
-                        // Set the movie information in the textarea
-                        let info = `*${data.Title} (${data.Year})*\n`;
-                        info += `*Type:* ${type}\n`;
-                        if (data.Type === "series" && data.totalSeasons) {
-                            info += `*Total Seasons:* ${data.totalSeasons}\n`;
-                        }
-                        info += `*Language(s):* ${data.Language}\n`;
-                        info += `*Genre(s):* ${data.Genre}\n`;
-                        info += `*Country:* ${data.Country}\n`;
-                        info += `*IMDb Rating:* ${data.imdbRating}\n`;
-                        info += `*IMDb Votes:* ${data.imdbVotes}\n`;
-                        info += `*Plot:* ${data.Plot}`;
+      // Copy image to clipboard using canvas method
+      function copyImage() {
+        const posterImg = document.getElementById("poster");
+        const copyImageButton = document.getElementById("copyImageButton");
 
-                        movieInfoTextarea.value = info;
-                    }
-                })
-                .catch(error => {
-                    console.log('Error:', error);
-                    movieInfoTextarea.value = 'There was an error fetching the data. Please try again later.';
-                    resultDiv.style.display = 'block';
-                    copyButtons.style.display = 'none';
-                    posterImg.style.display = 'none';
-                });
-        }
+        // Create a canvas element
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
 
-        // Copy movie info text to clipboard without selecting text visually
-        function copyInfo() {
-            const movieInfoTextarea = document.getElementById('movieInfo');
+        // Set canvas size equal to image size
+        const img = new Image();
+        img.crossOrigin = "anonymous"; // This is important to avoid CORS issues
+        img.src = posterImg.src;
 
-            // Create a temporary hidden textarea to copy the content
-            const tempTextarea = document.createElement('textarea');
-            tempTextarea.value = movieInfoTextarea.value;
-            document.body.appendChild(tempTextarea);
+        img.onload = function () {
+          canvas.width = img.width;
+          canvas.height = img.height;
+          ctx.drawImage(img, 0, 0);
 
-            tempTextarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempTextarea); // Remove temp textarea
-
-            const copyInfoButton = document.getElementById('copyInfoButton');
-            copyInfoButton.innerText = 'Copied!';
-
-            setTimeout(() => {
-                copyInfoButton.innerText = 'Copy Info';
-            }, 1500); // Reset text after 1.5 seconds
-        }
-
-        // Copy image to clipboard using canvas method
-        function copyImage() {
-            const posterImg = document.getElementById('poster');
-            const copyImageButton = document.getElementById('copyImageButton');
-
-            // Create a canvas element
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-
-            // Set canvas size equal to image size
-            const img = new Image();
-            img.crossOrigin = 'anonymous'; // This is important to avoid CORS issues
-            img.src = posterImg.src;
-
-            img.onload = function() {
-                canvas.width = img.width;
-                canvas.height = img.height;
-                ctx.drawImage(img, 0, 0);
-
-                // Convert canvas content to blob
-                canvas.toBlob(function(blob) {
-                    const item = new ClipboardItem({ 'image/png': blob });
-                    navigator.clipboard.write([item])
-                        .then(() => {
-                            copyImageButton.innerText = 'Copied!';
-                            setTimeout(() => {
-                                copyImageButton.innerText = 'Copy Image';
-                            }, 1500); // Reset text after 1.5 seconds
-                        })
-                        .catch(err => {
-                            console.error('Failed to copy image: ', err);
-                            copyImageButton.innerText = 'Error!';
-                            setTimeout(() => {
-                                copyImageButton.innerText = 'Copy Image';
-                            }, 1500);
-                        });
-                });
-            };
-            
-            img.onerror = function() {
-                console.error('Failed to load image for copying');
-                copyImageButton.innerText = 'Error!';
+          // Convert canvas content to blob
+          canvas.toBlob(function (blob) {
+            const item = new ClipboardItem({ "image/png": blob });
+            navigator.clipboard
+              .write([item])
+              .then(() => {
+                copyImageButton.innerText = "Copied!";
                 setTimeout(() => {
-                    copyImageButton.innerText = 'Copy Image';
+                  copyImageButton.innerText = "Copy Image";
+                }, 1500); // Reset text after 1.5 seconds
+              })
+              .catch((err) => {
+                console.error("Failed to copy image: ", err);
+                copyImageButton.innerText = "Error!";
+                setTimeout(() => {
+                  copyImageButton.innerText = "Copy Image";
                 }, 1500);
-            };
-        }
+              });
+          });
+        };
+
+        img.onerror = function () {
+          console.error("Failed to load image for copying");
+          copyImageButton.innerText = "Error!";
+          setTimeout(() => {
+            copyImageButton.innerText = "Copy Image";
+          }, 1500);
+        };
+      }
+
+      // Initialize the download link visibility
+      toggleDownloadLinks();
     </script>
-
-</body>
+  </body>
 </html>
-
