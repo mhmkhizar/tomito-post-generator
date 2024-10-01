@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="icon" type="image/png" href="images/favicon.png" />
     <title>Tomito Post Generator</title>
     <style>
       /* General CSS for dark mode and responsive design */
@@ -131,7 +131,7 @@
         display: flex;
         align-items: center;
         margin-bottom: 10px;
-        width: 50%;
+        width: 103.5%;
       }
 
       .add-season-btn {
@@ -156,10 +156,24 @@
         background-color: #45a049;
       }
 
+      #contentType {
+        width: 103.5%;
+        margin-bottom: 10px;
+      }
+
       @media (max-width: 600px) {
         input[type="text"],
         select {
           width: 100%;
+        }
+
+        .download-link-container {
+          width: 106.5%;
+        }
+
+        #contentType {
+          width: 106.5%;
+          margin-bottom: 10px;
         }
 
         button {
@@ -194,11 +208,7 @@
             placeholder="Enter Language(s)"
             required
           />
-          <select
-            id="contentType"
-            onchange="toggleDownloadLinks()"
-            style="width: 50%; margin-bottom: 10px"
-          >
+          <select id="contentType" onchange="toggleDownloadLinks()">
             <option value="movie">Movie</option>
             <option value="series">Series</option>
           </select>
