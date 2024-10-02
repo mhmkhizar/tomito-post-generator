@@ -316,11 +316,13 @@
               resultDiv.style.display = "block";
               copyButtons.style.display = "block";
 
-              // Set the poster image
-              posterImg.src =
-                data.Poster !== "N/A"
-                  ? data.Poster
-                  : "https://via.placeholder.com/300x450?text=No+Image";
+              // Set the poster image with modified URL
+              if (data.Poster !== "N/A") {
+                let modifiedPosterUrl = data.Poster.replace(/SX\d+/, "SX1000000");
+                posterImg.src = modifiedPosterUrl;
+              } else {
+                posterImg.src = "https://via.placeholder.com/300x450?text=No+Image";
+              }
               posterImg.style.display = "block";
 
               // Capitalize the first letter of the type
