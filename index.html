@@ -330,16 +330,16 @@
 
               // Set the movie information in the textarea
               let info = `💫 *${data.Title} (${data.Year})*\n\n`;
-              info += `🍅 *Type:* ${type}\n`;
+              info += `🍅🍅🍅🍅\n*Type:* ${type}\n`;
               if (data.Type === "series" && data.totalSeasons) {
-                info += `🍅 *Total Seasons:* ${data.totalSeasons}\n`;
+                info += `*Total Seasons:* ${data.totalSeasons}\n`;
               }
-              info += `🍅 *Language(s):* ${languages}\n`;
-              info += `🍅 *Genre(s):* ${data.Genre}\n`;
-              // info += `🍅 *Country:* ${data.Country}\n`;
-              info += `🍅 *IMDb Rating:* ${data.imdbRating}/10\n\n`;
-              // info += `🍅 *IMDb Votes:* ${data.imdbVotes}\n`;
-              // info += `🍅 *Plot:* ${data.Plot}\n\n`;
+              info += `*Language(s):* ${languages}\n`;
+              info += `*Genre(s):* ${data.Genre}\n`;
+              // info += `*Country:* ${data.Country}\n`;
+              info += `*IMDb Rating:* ${data.imdbRating}/10\n🍅🍅🍅🍅🍅🍅\n\n`;
+              // info += `*IMDb Votes:* ${data.imdbVotes}\n`;
+              // info += `*Plot:* ${data.Plot}\n\n`;
 
               // Add download links
               const contentType = document.getElementById("contentType").value;
