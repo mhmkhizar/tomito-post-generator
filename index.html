@@ -318,7 +318,7 @@
 
               // Set the poster image with modified URL
               if (data.Poster !== "N/A") {
-                let modifiedPosterUrl = data.Poster.replace(/SX\d+/, "SX1000000");
+                let modifiedPosterUrl = data.Poster.replace(/SX\d+/, "SX2500");
                 posterImg.src = modifiedPosterUrl;
               } else {
                 posterImg.src = "https://via.placeholder.com/300x450?text=No+Image";
@@ -337,7 +337,7 @@
               info += `*Language(s):* ${languages}\n`;
               info += `*Genre(s):* ${data.Genre}\n`;
               // info += `*Country:* ${data.Country}\n`;
-              info += `*IMDb Rating:* ${data.imdbRating}/10\n🍅🍅🍅🍅🍅🍅🍅\n\n`;
+              info += `*IMDb Rating:* ${data.imdbRating}/10\n🍅🍅🍅🍅🍅🍅\n\n`;
               // info += `*IMDb Votes:* ${data.imdbVotes}\n`;
               // info += `*Plot:* ${data.Plot}\n\n`;
 
